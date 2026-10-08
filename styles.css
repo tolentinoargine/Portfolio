@@ -336,3 +336,9 @@ tbody td { color: var(--muted); }
   .contact-link-row { border-color: #dce4e9; }
   .contact-grid, .about-grid { gap: 35px; }
 }
+
+@media (max-width:760px) {
+  .service-row h3 br {
+    display: inline; 
+  }
+}
