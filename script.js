@@ -99,8 +99,8 @@ if ('IntersectionObserver' in window) {
 }
 
 // Copy the email address. Fall back for local files and older browsers.
-const emailAddress = 'tolentinoargine@gmail.com';
 const copyButton = document.querySelector('.copy-email');
+const emailAddress = copyButton.dataset.email;
 const toast = document.getElementById('toast');
 let toastTimeout;
 
