@@ -1,39 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#102c44">
-  <meta name="description" content="Meet Argine Tolentino, an ecommerce customer support specialist with 2.5 years of experience. Explore email support, inbox management, and operations work samples.">
-  <meta property="og:title" content="Argine Tolentino | Ecommerce Customer Support">
-  <meta property="og:description" content="Thoughtful customer support and organized daily operations for online stores.">
-  <meta property="og:type" content="website">
-  <title>Argine Tolentino | Ecommerce Customer Support</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23102c44'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='Arial,sans-serif' font-weight='700' font-size='32' fill='%23efc56b'%3EA%3C/text%3E%3C/svg%3E">
-  <link rel="stylesheet" href="styles.css">
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
+<?php
+declare(strict_types=1);
 
-  <header class="site-header" id="site-header">
-    <div class="container header-inner">
-      <a class="brand" href="#home" aria-label="Argine Tolentino, home">
-        <span class="brand-mark" aria-hidden="true">at<span>.</span></span>
-        <span class="brand-name">Argine Tolentino<span>Customer support specialist</span></span>
-      </a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open navigation" hidden>
-        <span></span><span></span>
-      </button>
-      <nav class="main-nav" id="main-nav" aria-label="Main navigation">
-        <a href="#about">About</a>
-        <a href="#services">Services</a>
-        <a href="#work">Work samples</a>
-        <a class="nav-contact" href="#contact">Let's talk</a>
-      </nav>
-    </div>
-  </header>
+require_once __DIR__ . '/includes/functions.php';
+$portfolio = require __DIR__ . '/data/portfolio.php';
+$profile = $portfolio['profile'];
 
+header('Content-Type: text/html; charset=UTF-8');
+require __DIR__ . '/includes/header.php';
+?>
   <main id="main">
     <section class="hero" id="home" aria-labelledby="hero-title">
       <div class="container">
@@ -41,27 +15,26 @@
           <div class="hero-copy">
             <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> Ecommerce customer support</p>
             <h1 id="hero-title">Calm support.<br><em>Happy customers.</em></h1>
-            <p class="hero-intro">Hi, I'm Argine. I help online store owners care for their customers and keep daily operations running smoothly.</p>
+            <p class="hero-intro"><?= portfolio_e($profile['intro']) ?></p>
             <div class="hero-actions">
               <a class="button button-gold" href="#work">Explore my work</a>
-              <a class="button button-outline" href="Argine-Tolentino-Portfolio.pdf" download="Argine-Tolentino-Portfolio.pdf">Download portfolio <span class="file-label">PDF</span></a>
+              <a class="button button-outline" href="<?= portfolio_e($profile['resume_file']) ?>" download="<?= portfolio_e($profile['resume_file']) ?>">Download resume <span class="file-label">PDF</span></a>
             </div>
-            <p class="hero-footnote">Customer care, with a little more care.</p>
+            <p class="hero-footnote">Based in <?= portfolio_e($profile['location']) ?>.</p>
           </div>
           <div class="hero-visual">
             <div class="portrait-card">
               <div class="portrait-topline"><span>A little about me</span><span aria-hidden="true">01 / AT</span></div>
-              <img class="portrait" src="argine-portrait.webp" width="800" height="800" alt="Argine Tolentino smiling, wearing a black blazer" fetchpriority="high">
-              <div class="portrait-caption"><strong>Argine Tolentino</strong><span>Your ecommerce support partner</span></div>
+              <img class="portrait" src="<?= portfolio_e($profile['portrait_file']) ?>" width="800" height="800" alt="<?= portfolio_e($profile['portrait_alt']) ?>" fetchpriority="high">
+              <div class="portrait-caption"><strong><?= portfolio_e($profile['name']) ?></strong><span>Your ecommerce support partner</span></div>
             </div>
             <div class="care-note"><span class="care-symbol" aria-hidden="true">✳</span><span>Clear answers.<br>Thoughtful follow-through.</span></div>
           </div>
         </div>
-        <div class="hero-stats" aria-label="Experience and quality scores">
-          <div class="stat"><strong>2.5<span> years</span></strong><p>Customer support experience</p></div>
-          <div class="stat"><strong>&gt;85<span>%</span></strong><p>Customer satisfaction (CSAT)</p></div>
-          <div class="stat"><strong>95<span>%</span></strong><p>Monthly quality assurance score</p></div>
-          <p class="stats-context">Experience at<br><strong>JQ BPO Global Solutions Inc.</strong></p>
+        <div class="hero-stats" aria-label="Experience and performance from my resume">
+          <?php foreach ($portfolio['stats'] as $stat): ?>
+          <div class="stat"><strong><?= portfolio_e($stat['value']) ?><span><?= portfolio_e($stat['unit'] === '%' ? '%' : ' ' . $stat['unit']) ?></span></strong><p><?= portfolio_e($stat['label']) ?></p></div>
+          <?php endforeach; ?>
         </div>
       </div>
     </section>
@@ -75,43 +48,56 @@
         </div>
         <div class="about-copy">
           <p class="lead">Behind every order is a person who wants to be heard. That's where I come in.</p>
-          <p>I'm an ecommerce customer support specialist with 2.5 years of experience at JQ Global Solutions Inc., supporting international buyers on a global online marketplace.</p>
-          <p>I'm comfortable with fast-moving queues, order lookups, refunds, disputes, and account issues. I also keep buyers informed on escalated cases, with clear next steps and empathetic replies.</p>
-          <p>Now, I'm bringing that experience to online store owners who need a reliable partner for customer support, inbox management, and daily operations.</p>
+          <p>I'm Argine R. Tolentino, a customer service representative with 2+ years of experience at JQ BPO Global Solutions Inc., supporting a high-volume international ecommerce account through live chat, email, and phone support.</p>
+          <p>I handle order, refund, account, and delivery concerns with clear communication and a calm approach. My experience also includes shipment tracking across carriers, ticket escalation, price matching, and helping teammates with live cases.</p>
+          <p>I'm looking to bring that experience to customer support, operations support, or virtual assistance roles where reliable service and attention to detail make a difference.</p>
           <div class="skill-tags" aria-label="Core competencies">
-            <span>Email &amp; chat support</span><span>Order tracking</span><span>Refunds &amp; disputes</span><span>Account resolution</span><span>High-volume queues</span><span>Buyer communication</span>
+            <?php foreach ($portfolio['skills'] as $skill): ?>
+            <span><?= portfolio_e($skill) ?></span>
+            <?php endforeach; ?>
           </div>
         </div>
+      </div>
+    </section>
+
+    <section class="section experience-section" id="experience" aria-labelledby="experience-title">
+      <div class="container experience-grid">
+        <div class="section-heading">
+          <p class="section-kicker"><span>02</span> Professional experience</p>
+          <h2 id="experience-title">Real experience.<br><em>Reliable support.</em></h2>
+          <p class="heading-note">A high-volume international account.<br>Customers, teammates, and details to care for.</p>
+        </div>
+        <article class="experience-card">
+          <p class="experience-period"><time datetime="2023-12-18">December 18, 2023</time> – <time datetime="2026-05-29">May 29, 2026</time></p>
+          <h3>Customer Service Representative</h3>
+          <p class="experience-company">JQ BPO Global Solutions Inc.</p>
+          <p class="experience-context">Global ecommerce account · Santiago City, Isabela</p>
+          <ul class="experience-highlights">
+            <li>Handled 200+ customer chats per day while maintaining 85% CSAT and an 80–90% QA score.</li>
+            <li>Processed refunds and order changes, followed documented procedures, and recorded requests accurately.</li>
+            <li>Resolved a high-risk customer case within SOP without supervisor escalation.</li>
+            <li>Supported teammates with questions, escalations, and live cases when the team leader was unavailable.</li>
+            <li>Researched competitor prices and checked promotion eligibility for price-matching requests.</li>
+          </ul>
+          <div class="experience-channels"><span>Live chat</span><span>Email</span><span>Phone support</span></div>
+        </article>
       </div>
     </section>
 
     <section class="section services-section" id="services" aria-labelledby="services-title">
       <div class="container">
         <div class="section-heading section-heading-row">
-          <div><p class="section-kicker"><span>02</span> How I can help</p><h2 id="services-title">More care.<br><em>Less on your plate.</em></h2></div>
+          <div><p class="section-kicker"><span>03</span> How I can help</p><h2 id="services-title">More care.<br><em>Less on your plate.</em></h2></div>
           <p>From the first customer message to the final follow-up, I'll help keep the details in order.</p>
         </div>
         <div class="service-list">
+          <?php foreach ($portfolio['services'] as $index => $service): ?>
           <article class="service-row">
-            <span class="service-number" aria-hidden="true">01</span>
-            <h3>Customer<br>care</h3>
-            <div><p>Personalized email and chat replies that help customers feel understood. Clear communication for account concerns and escalated cases.</p><p class="service-keywords">Email &amp; chat · Account issues · Escalation updates</p></div>
+            <span class="service-number" aria-hidden="true"><?= portfolio_e(sprintf('%02d', $index + 1)) ?></span>
+            <h3><?= portfolio_lines($service['title']) ?></h3>
+            <div><p><?= portfolio_e($service['description']) ?></p><p class="service-keywords"><?= portfolio_e($service['keywords']) ?></p></div>
           </article>
-          <article class="service-row">
-            <span class="service-number" aria-hidden="true">02</span>
-            <h3>Order &amp; issue<br>resolution</h3>
-            <div><p>Order lookups, delivery tracking, refund requests, and dispute follow-ups, with clear timelines and the next steps customers need.</p><p class="service-keywords">Order tracking · Refunds · Disputes</p></div>
-          </article>
-          <article class="service-row">
-            <span class="service-number" aria-hidden="true">03</span>
-            <h3>Inbox &amp; lead<br>management</h3>
-            <div><p>Organized inboxes and case or lead tracking so inquiries, updates, and follow-ups don't slip through the cracks.</p><p class="service-keywords">Inbox organization · Case tracking · Lead follow-ups</p></div>
-          </article>
-          <article class="service-row">
-            <span class="service-number" aria-hidden="true">04</span>
-            <h3>Calendar &amp;<br>scheduling</h3>
-            <div><p>Appointments, discovery calls, and follow-up schedules kept in order, so you can focus on the conversations that matter.</p><p class="service-keywords">Calendar management · Appointments · Follow-ups</p></div>
-          </article>
+          <?php endforeach; ?>
         </div>
       </div>
     </section>
@@ -119,7 +105,7 @@
     <section class="section work-section" id="work" aria-labelledby="work-title">
       <div class="container">
         <div class="section-heading section-heading-row">
-          <div><p class="section-kicker"><span>03</span> Selected work samples</p><h2 id="work-title">A look at <em>how I work.</em></h2></div>
+          <div><p class="section-kicker"><span>04</span> Selected work samples</p><h2 id="work-title">A look at <em>how I work.</em></h2></div>
           <p>A calm voice in the inbox.<br>A clear process behind the scenes.</p>
         </div>
         <p class="sample-disclaimer">Illustrative samples from my portfolio. All customer names, orders, dates, and details below are fictional.</p>
@@ -217,9 +203,34 @@
       </div>
     </section>
 
+    <section class="section tools-section" id="skills" aria-labelledby="tools-title">
+      <div class="container">
+        <div class="section-heading section-heading-row">
+          <div><p class="section-kicker"><span>05</span> Tools &amp; background</p><h2 id="tools-title">The tools I use.<br><em>The foundation I bring.</em></h2></div>
+          <p>Practical tools, communication studies, and ecommerce customer service training.</p>
+        </div>
+        <div class="tool-grid" aria-label="Tools and practical skills">
+          <?php foreach ($portfolio['tools'] as $tool): ?>
+          <article class="tool-item"><p class="small-label"><?= portfolio_e($tool['category']) ?></p><h3><?= portfolio_lines($tool['title']) ?></h3><p><?= portfolio_e($tool['description']) ?></p></article>
+          <?php endforeach; ?>
+        </div>
+        <div class="background-grid">
+          <div class="background-column">
+            <h3>Education</h3>
+            <article class="background-item"><p class="background-date">2021–2023</p><h4>Bachelor of Arts in Communication</h4><p class="study-note">Undergraduate studies</p><p>Northeastern College<br>Santiago City, Isabela</p></article>
+            <article class="background-item"><p class="background-date">2019–2021</p><h4>Senior High School · HUMSS</h4><p>Smart Achiever’s Academy Subic Inc.<br>Subic, Zambales</p></article>
+          </div>
+          <div class="background-column">
+            <h3>Training &amp; recognition</h3>
+            <article class="background-item"><p class="background-date"><time datetime="2023-12-29">December 29, 2023</time></p><h4>Certificate of Achievement</h4><p class="study-note">Training completion</p><p>Awarded for completing the training period and outstanding performance as a customer service representative supporting an ecommerce account through JQ BPO Global Solutions Inc.</p></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section working-section" aria-labelledby="working-title">
       <div class="container">
-        <div class="section-heading"><p class="section-kicker"><span>04</span> Working together</p><h2 id="working-title">Good support starts<br>with <em>good habits.</em></h2></div>
+        <div class="section-heading"><p class="section-kicker"><span>06</span> Working together</p><h2 id="working-title">Good support starts<br>with <em>good habits.</em></h2></div>
         <div class="habit-grid">
           <article><span class="habit-number">01 / Communication</span><h3>Clear, calm,<br>and friendly.</h3><p>Fast, understandable replies that treat each customer's concern with care.</p></article>
           <article><span class="habit-number">02 / Personalization</span><h3>A person.<br>Never just a ticket.</h3><p>Every reply is personalized with the customer's name and relevant order details.</p></article>
@@ -231,22 +242,19 @@
     <section class="section contact-section" id="contact" aria-labelledby="contact-title">
       <div class="container contact-grid">
         <div class="contact-copy">
-          <p class="section-kicker"><span>05</span> Let's work together</p>
+          <p class="section-kicker"><span>07</span> Let's work together</p>
           <h2 id="contact-title">Your customers<br>are in <em>good hands.</em></h2>
-          <p>Let's make your customer support and daily operations run smoothly. Get in touch to set up a free intro call.</p>
-          <a class="button button-gold" href="mailto:tolentinoargine@gmail.com?subject=Intro%20call%20%E2%80%94%20Customer%20support">Let's start a conversation</a>
+          <p>Hiring for customer support, operations support, or virtual assistance? Let's talk about how I can help your team and customers.</p>
+          <a class="button button-gold" href="<?= portfolio_e('mailto:' . $profile['email'] . '?subject=' . rawurlencode('Intro call — Customer support')) ?>">Let's start a conversation</a>
         </div>
         <div class="contact-details">
-          <div class="contact-link-row"><span class="contact-label">Email</span><div class="email-contact"><a href="mailto:tolentinoargine@gmail.com">tolentinoargine@gmail.com</a><button class="copy-email" type="button" aria-label="Copy email address" hidden>Copy</button></div></div>
-          <div class="contact-link-row"><span class="contact-label">Phone / WhatsApp</span><a href="tel:+639947209871">+63 994 720 9871</a></div>
-          <div class="contact-link-row"><span class="contact-label">LinkedIn</span><a href="https://www.linkedin.com/in/arginetolentino" target="_blank" rel="noopener noreferrer">Connect with Argine<span class="sr-only"> (opens in a new tab)</span></a></div>
+          <div class="contact-link-row"><span class="contact-label">Email</span><div class="email-contact"><a href="<?= portfolio_e('mailto:' . $profile['email']) ?>"><?= portfolio_e($profile['email']) ?></a><button class="copy-email" data-email="<?= portfolio_e($profile['email']) ?>" type="button" aria-label="Copy email address" hidden>Copy</button></div></div>
+          <div class="contact-link-row"><span class="contact-label">Phone / WhatsApp</span><a href="<?= portfolio_e('tel:' . $profile['phone_number']) ?>"><?= portfolio_e($profile['phone_display']) ?></a></div>
+          <div class="contact-link-row"><span class="contact-label">LinkedIn</span><a href="<?= portfolio_e($profile['linkedin_url']) ?>" target="_blank" rel="noopener noreferrer">Connect with Argine<span class="sr-only"> (opens in a new tab)</span></a></div>
           <div class="availability"><span class="contact-label">Availability</span><p>Monday–Friday · 9:00 AM–5:00 PM<br>Philippine Time (UTC+8)</p><p class="availability-note">Flexible to overlap with US and EU business hours.<br>Rates available upon request.</p></div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer class="site-footer"><div class="container footer-inner"><p>© <span id="current-year">2026</span> Argine Tolentino</p><p>Thoughtful support. Organized operations.</p><a href="#home">Back to top</a></div></footer>
-  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
-</body>
-</html>
+<?php require __DIR__ . '/includes/footer.php'; ?>
